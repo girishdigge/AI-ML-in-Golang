@@ -41,7 +41,7 @@ func main() {
 	var m Maze
 	var maze, searchType string
 
-	flag.StringVar(&maze, "file", "maze,txt", "maze file")
+	flag.StringVar(&maze, "file", "maze.txt", "maze file")
 	flag.StringVar(&searchType, "search", "dfs", "search type")
 	flag.Parse()
 
@@ -115,7 +115,7 @@ func (g *Maze) Load(fileName string) error {
 				wall.State.Col = j
 				wall.wall = false
 
-			case "C":
+			case " ":
 				wall.State.Row = i
 				wall.State.Col = j
 				wall.wall = false
@@ -132,5 +132,6 @@ func (g *Maze) Load(fileName string) error {
 		rows = append(rows, cols)
 	}
 	g.Walls = rows
+
 	return nil
 }
