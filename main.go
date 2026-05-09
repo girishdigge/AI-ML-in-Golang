@@ -61,7 +61,7 @@ type Maze struct {
 	steps       int
 	NumExplored int
 	Debug       bool
-	searchType  int
+	SearchType  int
 	Animate     bool
 }
 
@@ -73,10 +73,10 @@ func init() {
 func main() {
 
 	var m Maze
-	var maze, searchType string
+	var maze, SearchType string
 
 	flag.StringVar(&maze, "file", "maze.txt", "maze file")
-	flag.StringVar(&searchType, "search", "dfs", "search type")
+	flag.StringVar(&SearchType, "search", "dfs", "search type")
 	flag.BoolVar(&m.Debug, "debug", false, "Write debugging info")
 	flag.BoolVar(&m.Animate, "animate", false, "produce animation")
 	flag.Parse()
@@ -88,17 +88,17 @@ func main() {
 	}
 	startTime := time.Now()
 
-	switch searchType {
+	switch SearchType {
 	case "dfs":
-		m.searchType = DFS
+		m.SearchType = DFS
 		solveDFS(&m)
 
 	case "bfs":
-		m.searchType = BFS
+		m.SearchType = BFS
 		solveBFS(&m)
 
 	case "dijkstra":
-		m.searchType = DIJKSTRA
+		m.SearchType = DIJKSTRA
 		solveDijkstra(&m)
 
 	default:
