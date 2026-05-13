@@ -20,6 +20,7 @@ func (d *AstarSearch) GetFrontier() []*Node {
 
 func (d *AstarSearch) Add(i *Node) {
 	i.CostToGoal = i.ManhattanDistance(d.Game.Start)
+	i.EstimatedCostToGoal = euclideanDist(i.State, d.Game.Goal) + float64(i.CostToGoal)
 	d.Frontier.Push(i)
 	heap.Init(&d.Frontier)
 }
