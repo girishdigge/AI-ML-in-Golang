@@ -65,11 +65,11 @@ func (g *Maze) OutputImage(fileName ...string) {
 			} else if col.State.Row == g.Goal.Row && col.State.Col == g.Goal.Col {
 				// Ending point.  Draw a red square.
 				g.drawSquare(col, p, img, red, cellSize, j*cellSize, i*cellSize)
-			} else if col.State.Water {
-				g.drawSquare(col, p, img, blue, cellSize, j*cellSize, i*cellSize)
 			} else if col.State == g.CurrentNode.State {
 				// Curren location. Draw in orange.
 				g.drawSquare(col, p, img, orange, cellSize, j*cellSize, i*cellSize)
+			} else if col.State.Water {
+				g.drawSquare(col, p, img, blue, cellSize, j*cellSize, i*cellSize)
 			} else if inExplored(Point{i, j, false}, g.Explored) {
 				// An explored cell.
 				g.drawSquare(col, p, img, yellow, cellSize, j*cellSize, i*cellSize)
