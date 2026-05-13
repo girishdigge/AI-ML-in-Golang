@@ -65,10 +65,12 @@ func (g *Maze) OutputImage(fileName ...string) {
 			} else if col.State.Row == g.Goal.Row && col.State.Col == g.Goal.Col {
 				// Ending point.  Draw a red square.
 				g.drawSquare(col, p, img, red, cellSize, j*cellSize, i*cellSize)
+			} else if col.State.Water {
+				g.drawSquare(col, p, img, blue, cellSize, j*cellSize, i*cellSize)
 			} else if col.State == g.CurrentNode.State {
 				// Curren location. Draw in orange.
 				g.drawSquare(col, p, img, orange, cellSize, j*cellSize, i*cellSize)
-			} else if inExplored(Point{i, j}, g.Explored) {
+			} else if inExplored(Point{i, j, false}, g.Explored) {
 				// An explored cell.
 				g.drawSquare(col, p, img, yellow, cellSize, j*cellSize, i*cellSize)
 			} else {
@@ -107,11 +109,27 @@ func (g *Maze) drawSquare(col Wall, p Point, img *image.RGBA, c color.Color, siz
 		default:
 			//Do nothing
 		}
+		//check to see if this cell is flooded
+		if col.State.Water {
+			g.printWater(blue, patch)
+		}
+
 		// Print the x y coordinates of this cell
 		g.printLocation(p, color.Black, patch)
 	}
 
 	draw.Draw(img, image.Rect(x, y, x+size, y+size), patch, image.Point{}, draw.Src)
+}
+
+func (g *Maze) printWater(c color.Color, patch *image.RGBA) {
+	point := fixed.Point26_6{X: fixed.I(50), Y: fixed.I(18)}
+	d := &font.Drawer{
+		Dst:  patch,
+		Src:  image.NewUniform(c),
+		Face: basicfont.Face7x13,
+		Dot:  point,
+	}
+	d.DrawString("W")
 }
 
 func (g *Maze) PrintTotalCost(p Point, c color.Color, patch *image.RGBA) {
