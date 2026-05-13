@@ -100,7 +100,7 @@ func (g *Maze) drawSquare(col Wall, p Point, img *image.RGBA, c color.Color, siz
 
 	if !col.wall {
 		switch g.SearchType {
-		case DIJKSTRA:
+		case DIJKSTRA, GBFS:
 			g.printManhattanCost(p, color.Black, patch)
 
 		}
@@ -121,7 +121,17 @@ func (g *Maze) printManhattanCost(p Point, c color.Color, patch *image.RGBA) {
 	n := Node{
 		State: p,
 	}
-	d.DrawString(fmt.Sprintf("%d", n.ManhattanDistance(g.Start)))
+
+	switch g.SearchType {
+	case DIJKSTRA:
+		d.DrawString(fmt.Sprintf("%d", n.ManhattanDistance(g.Start)))
+
+	case GBFS:
+		d.DrawString(fmt.Sprintf("%d", n.ManhattanDistance(g.Goal)))
+
+	default:
+		//do nothing
+	}
 }
 
 // printLocation
