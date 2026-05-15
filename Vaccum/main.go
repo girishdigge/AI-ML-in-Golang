@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 )
 
 func main() {
@@ -13,4 +14,5 @@ func main() {
 	flag.Parse()
 
 	room := NewRoom(configFile, animate)
+	fmt.Println(room.CleanableCellCount)
 }
