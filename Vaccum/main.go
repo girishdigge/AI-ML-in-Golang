@@ -15,4 +15,10 @@ func main() {
 
 	room := NewRoom(configFile, animate)
 	fmt.Println(room.CleanableCellCount)
+
+	//Get a robot.
+
+	//Assign a cleaning algorithm.
+
+	//Clean the room
 }
