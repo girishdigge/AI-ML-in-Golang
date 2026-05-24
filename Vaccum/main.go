@@ -17,8 +17,16 @@ func main() {
 	fmt.Println(room.CleanableCellCount)
 
 	//Get a robot.
+	robot := NewRobot(1, 1)
 
 	//Assign a cleaning algorithm.
+	switch algorithm {
+	case "random":
+		robot.CleanRoom = CleanRoomRandomWalk
+	default:
+		//Do nothing
+	}
 
 	//Clean the room
+	robot.CleanRoom(room, robot)
 }
