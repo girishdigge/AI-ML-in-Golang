@@ -205,3 +205,7 @@ func displaySummary(room *Room, robot *Robot, moveCount int, cleaningTime time.D
 	fmt.Println()
 	fmt.Println("================================")
 }
+
+func (room *Room) IsValid(x, y int) bool {
+	return x >= 0 && x < room.Width && y >= 0 && y < room.Height && !room.Grid[x][y].Obstacle
+}
